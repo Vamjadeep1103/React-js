@@ -46,11 +46,11 @@ const [text, setText] = useState('');
 
 return (
   <div>
-    <div className='container'>   
+    <div className='container' style={{color: props.mode === `dark` ? `white` : `black`}}>   
       <h1>{props.heading}  </h1>
       <div className="mb-3">
         <label for="mybox" className="form-label"  >Example textarea</label>
-        <textarea className="form-control" value ={text}  onChange={handleonClick}  id="mybox" rows="3"></textarea>
+        <textarea className="form-control" value ={text}  onChange={handleonClick} style={{backgroundColor : props.mode === `dark` ? `grey` : `white`,color: props.mode === `dark` ? `grey` : `black`}} id="mybox" rows="3"></textarea>
       </div>
       <button type="submit" className="btn btn-primary me-2" onClick={handleUpClick}>convert the uppercase</button>
       <button type="submit" className="btn btn-primary me-2" onClick={handleLowClick}>convert the lowercase</button>
@@ -58,7 +58,7 @@ return (
       <button type="submit" className="btn btn-primary me-2" onClick={handleCopy}>Copy text  </button>
     </div>
 
-    <div className="container my-3">
+    <div className="container my-3" style={{color: props.mode === `dark` ? `white` : `black`}}> 
       <h2>Text Summary</h2>  
       <p>{text.split(" ").length} words and {text.length} characters</p>
       <p>{0.008 * text.split(" ").length} Minutes read</p>
@@ -71,7 +71,8 @@ return (
       
     </div>
     
-  </div>
+</div>
+ 
   
 )
 }
