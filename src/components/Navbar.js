@@ -5,28 +5,27 @@ export default function Navbar(props) {
   return (
     <nav className={`navbar navbar-expand-lg navbar-${props.mode} bg-${props.mode}`}>
       <div className="container-fluid">
+        
         {/* Navbar Brand */}
         <a className="navbar-brand" href="#">Form</a>
 
-        {/* Dark Mode Switch (Close to Navbar Brand) */}
-
+        {/* Dark Mode Toggle Switch */}
         <div className="d-flex align-items-center ms-auto">
-  <input 
-    className="form-check-input me-2" 
-    onClick={props.toggleMode} 
-    type="checkbox" 
-    role="switch" 
-    id="flexSwitchCheckDefault" 
-  />
-  <label 
-    className={`form-check-label text-${props.mode === "light" ? "dark" : "light"}`} 
-    htmlFor="flexSwitchCheckDefault"
-  >
-    {props.mode === "light" ? "Enable Dark Mode" : "Disable Dark Mode"}
-  </label>
-</div>
+          <input 
+            className="form-check-input me-2" 
+            onClick={props.toggleMode} 
+            type="checkbox" 
+            role="switch" 
+            id="darkModeSwitch" 
+          />
+          <label 
+            className={`form-check-label text-${props.mode === "light" ? "dark" : "light"}`} 
+            htmlFor="darkModeSwitch">
+            {props.mode === "light" ? "Enable Dark Mode" : "Disable Dark Mode"}
+          </label>
+        </div>
 
-        {/* Navbar Toggler Button for Small Screens */}
+        {/* Navbar Toggler for Small Screens */}
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" 
           aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
@@ -34,9 +33,11 @@ export default function Navbar(props) {
 
         {/* Navbar Links */}
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul className="navbar-nav">
+          <ul className="navbar-nav ms-auto">
+            
+            {/* Home Dropdown */}
             <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                 Home
               </a>
               <ul className="dropdown-menu">
@@ -47,12 +48,14 @@ export default function Navbar(props) {
               </ul>
             </li>
 
+            {/* Features Link */}
             <li className="nav-item">
               <a className="nav-link" href="#">Features</a>
             </li>
             
+            {/* Pricing Dropdown */}
             <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                 Pricing
               </a>
               <ul className="dropdown-menu">
@@ -62,8 +65,9 @@ export default function Navbar(props) {
               </ul>
             </li>
 
+            {/* About Us Dropdown */}
             <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                 About Us
               </a>
               <ul className="dropdown-menu">
@@ -74,6 +78,7 @@ export default function Navbar(props) {
             </li>
           </ul>
         </div>
+
       </div>
     </nav>
   );
@@ -81,14 +86,11 @@ export default function Navbar(props) {
 
 // Define Prop Types
 Navbar.propTypes = {
-  title: PropTypes.string,
-  aboutText: PropTypes.string,
   mode: PropTypes.string.isRequired,
   toggleMode: PropTypes.func.isRequired
 };
 
 // Default Props
 Navbar.defaultProps = {
-  title: 'Set title here',
-  aboutText: 'About Textutils',
+  mode: "light",
 };

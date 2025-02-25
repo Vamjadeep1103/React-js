@@ -1,101 +1,66 @@
-import { hasFormSubmit } from '@testing-library/user-event/dist/utils';
-import React, {useState} from 'react'
-
-
+import React, { useState } from "react";
 
 export default function TextForm(props) {
+  const [text, setText] = useState("");
 
-const handleUpClick = ()=>{
-  console.log("Uppercase was clicked" + text);
-
-  let newText = text.toUpperCase(); 
-  setText(newText);
-  
-}
-const handleonClick = (event)=>{
-  console.log("on Change");
-  setText(event.target.value);  
-}
-
-const handleLowClick = ()=>{    
-  console.log("Lowercase was clicked" + text);
-  let newText = text.toLowerCase(); 
-  setText(newText);
-}
-
-const handleClearClick = ()=>{  
-    console.log("Clear was clicked" + text);
-    let newText = '';   
+  // Convert text to uppercase
+  const handleUpClick = () => {
+    let newText = text.toUpperCase();
     setText(newText);
-}
+    props.showAlert("Converted to uppercase!", "success");
+  };
 
-const handleCopy = () => {
-  console.log("Copy was clicked" + text);
-  var text = document.getElementById("mybox");
-  text.select();
-  text.setSelectionRange(0, text.value.length); // For mobile devices
-  navigator.clipboard.writeText(text.value);
-  document.getSelection().removeAllRanges(); // Deselect the text after copying
-};
+  // Convert text to lowercase
+  const handleLowClick = () => {
+    let newText = text.toLowerCase();
+    setText(newText);
+    props.showAlert("Converted to lowercase!", "success");
+  };
 
+  // Clear text
+  const handleClearClick = () => {
+    setText("");
+    props.showAlert("Text cleared!", "success");
+  };
 
-const [text, setText] = useState('');
+  // Copy text
+  const handleCopy = () => {
+    navigator.clipboard.writeText(text);
+    props.showAlert("Text copied to clipboard!", "success");
+  };
 
-//text =  "new text";//wrong way to change the state
-//setText("new text");//correct way to change the state
+  // Handle text change
+  const handleOnChange = (event) => {
+    setText(event.target.value);
+  };
 
-return (
-  <div>
-    <div className='container' style={{color: props.mode === `dark` ? `white` : `black`}}>   
-      <h1>{props.heading}  </h1>
+  return (
+    <div className="container">
+      <h1>{props.heading}</h1>
       <div className="mb-3">
-        <label for="mybox" className="form-label"  >Example textarea</label>
-        <textarea className="form-control" value ={text}  onChange={handleonClick} style={{backgroundColor : props.mode === `dark` ? `grey` : `white`,color: props.mode === `dark` ? `grey` : `black`}} id="mybox" rows="3"></textarea>
+        <textarea
+          className="form-control"
+          value={text}
+          onChange={handleOnChange}
+          style={{
+            backgroundColor: props.mode === "dark" ? "#555" : "white",
+            color: props.mode === "dark" ? "white" : "black"
+          }}
+          rows="5"
+        ></textarea>
       </div>
-      <button type="submit" className="btn btn-primary me-2" onClick={handleUpClick}>convert the uppercase</button>
-      <button type="submit" className="btn btn-primary me-2" onClick={handleLowClick}>convert the lowercase</button>
-      <button type="submit" className="btn btn-primary me-2" onClick={handleClearClick}>clear text</button>
-      <button type="submit" className="btn btn-primary me-2" onClick={handleCopy}>Copy text  </button>
-    </div>
+      <button className="btn btn-primary me-2" onClick={handleUpClick}>Uppercase</button>
+      <button className="btn btn-primary me-2" onClick={handleLowClick}>Lowercase</button>
+      <button className="btn btn-primary me-2" onClick={handleClearClick}>Clear</button>
+      <button className="btn btn-primary me-2" onClick={handleCopy}>Copy</button>
 
-    <div className="container my-3" style={{color: props.mode === `dark` ? `white` : `black`}}> 
-      <h2>Text Summary</h2>  
-      <p>{text.split(" ").length} words and {text.length} characters</p>
-      <p>{0.008 * text.split(" ").length} Minutes read</p>
-      <h2>Preview</h2>
-      <p>{
-        text.length>0?text:"Enter something in the textbox above to preview it here"
-      }</p>
-      <label for="customRange1" class="form-label">Time range(0-100)Seconds</label>
-      <input type="range" class="form-range" id="customRange1"/>  
-      
+      <div className="container my-3">
+        <h2>Text Summary</h2>
+        <p>{text.split(/\s+/).filter(word => word !== "").length} words and {text.length} characters</p>
+        <p>{0.008 * text.split(" ").length} Minutes read</p>
+        <h2>Preview</h2>
+        <p>{text.length > 0 ? text : "Enter text to preview it here"}</p>
+      </div>
     </div>
-    
-</div>
- 
-  
-)
+  );
 }
-
-
-//state in react
-//state is a temporary storage for the component  in react
-//state is a variable in react    
-//state is a object that holds some information that may change over the lifetime of the component
-//state is used to make the component interactive
-//state is used to make the component dynamic
-//state is used to make the component responsive
-//state is used to make the component data driven
-//state is used to make the component user friendly
-//handle the state in react   
-//useState() hook in react
-//useState() hook is used to handle the state in react
-//useState() hook is a function that returns an array
-//useState() hook is a function that returns an array with two elements
-
-
-//The me-2 class in Bootstrap stands for "margin-end 2", which applies right margin (margin-right) in LTR (left-to-right) layouts and left margin (margin-left) in RTL (right-to-left) layouts.
-// How It Works:
-// me → Margin End (right margin in LTR, left in RTL)
-// 2 → Spacing size (0 to 5 in Bootstrap)
-
